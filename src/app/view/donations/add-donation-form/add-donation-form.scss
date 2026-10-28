@@ -1,0 +1,141 @@
+@use 'shared' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $SPACE_4;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: $SPACE_4;
+
+  @include for('Desktop') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: $SPACE_4;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $SPACE_1;
+  min-width: 0;
+}
+
+.fieldWide {
+  @include for('Desktop') {
+    grid-column: 1 / -1;
+  }
+}
+
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.label {
+  font-size: $TEXT_SM;
+  font-weight: $WEIGHT_MEDIUM;
+}
+
+.input {
+  @include controlBase;
+}
+
+.inputError {
+  border-color: $DANGER_TEXT;
+}
+
+.inputError:focus-visible {
+  border-color: $DANGER_TEXT;
+  box-shadow: 0 0 0 3px $DANGER_SOFT;
+}
+
+.amountWrap {
+  position: relative;
+}
+
+.amountPrefix {
+  position: absolute;
+  left: $SPACE_3;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $TEXT_MUTED;
+}
+
+.inputAmount {
+  padding-left: $SPACE_6;
+}
+
+.radios {
+  display: flex;
+  gap: $SPACE_4;
+  min-height: $CONTROL_HEIGHT;
+  align-items: center;
+}
+
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: $SPACE_2;
+  cursor: pointer;
+}
+
+.radioInput {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: 0;
+  accent-color: $PINK;
+}
+
+.hint {
+  font-size: $TEXT_XS;
+  color: $TEXT_MUTED;
+}
+
+.error {
+  font-size: $TEXT_XS;
+  color: $DANGER_TEXT;
+}
+
+.formError {
+  padding: $SPACE_3 $SPACE_4;
+  border-radius: $RADIUS_SM;
+  background: $DANGER_SOFT;
+  color: $DANGER_TEXT;
+  font-size: $TEXT_SM;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $SPACE_3;
+  padding-top: $SPACE_2;
+}
+
+.cancelBtn {
+  @include buttonBase;
+  border-color: $BORDER_STRONG;
+  color: $TEXT;
+}
+
+.cancelBtn:hover {
+  background: $SURFACE_ALT;
+}
+
+.saveBtn {
+  @include buttonBase;
+  background: $PRIMARY_BG;
+  color: $PRIMARY_TEXT;
+}
+
+.saveBtn:hover {
+  background: $PRIMARY_BG_HOVER;
+}
+
+.select {
+  @include selectBase;
+}

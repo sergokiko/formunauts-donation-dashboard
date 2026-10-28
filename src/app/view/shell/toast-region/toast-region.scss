@@ -1,0 +1,96 @@
+@use 'shared' as *;
+
+.region {
+  position: fixed;
+  top: 5rem;
+  right: $SPACE_4;
+  left: $SPACE_4;
+  z-index: $Z_TOAST;
+  display: flex;
+  flex-direction: column;
+  gap: $SPACE_2;
+  pointer-events: none;
+
+  @include for('Desktop') {
+    left: auto;
+    width: 24rem;
+  }
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: $SPACE_2;
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: $SPACE_3;
+  padding: $SPACE_3 $SPACE_4;
+  border-radius: $RADIUS_MD;
+  border: 1px solid $BORDER;
+  background: $SURFACE;
+  box-shadow: $SHADOW_POPOVER;
+  pointer-events: auto;
+  animation: slideIn $TRANSITION_SLOW;
+}
+
+.toastSuccess {
+  border-color: $SUCCESS_TEXT;
+}
+
+.toastError {
+  border-color: $DANGER_TEXT;
+}
+
+.icon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: $RADIUS_PILL;
+  font-size: $TEXT_SM;
+  font-weight: $WEIGHT_BOLD;
+  color: $TEXT_INVERSE;
+  background: $SUCCESS_TEXT;
+}
+
+.toastError .icon {
+  background: $DANGER_TEXT;
+}
+
+.message {
+  flex: 1;
+  font-size: $TEXT_SM;
+  line-height: 1.4;
+  padding-top: 0.125rem;
+}
+
+.dismiss {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: $RADIUS_SM;
+  font-size: $TEXT_LG;
+  line-height: 1;
+  color: $TEXT_MUTED;
+  transition: background-color $TRANSITION;
+}
+
+.dismiss:hover {
+  background: $SURFACE_ALT;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

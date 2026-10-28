@@ -1,0 +1,18 @@
+<dialog #dialog class="dialog" aria-labelledby="add-donation-title" (close)="onClose()">
+  @if (isOpen() && campaign(); as campaign) {
+    <div class="content">
+      <div class="head">
+        <h2 id="add-donation-title" class="title">Add donation</h2>
+        <button type="button" class="closeBtn" (click)="close()" aria-label="Close dialog">×</button>
+      </div>
+      <p class="subtitle">Record a sign-up for {{ campaign.name }}.</p>
+      <app-add-donation-form
+        [campaign]="campaign"
+        [fundraisers]="fundraisers()"
+        (created)="onCreated($event)"
+        (cancelled)="close()"
+      />
+    </div>
+  }
+</dialog>
+>

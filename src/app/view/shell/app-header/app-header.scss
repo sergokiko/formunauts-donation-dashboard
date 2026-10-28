@@ -1,0 +1,103 @@
+@use 'shared' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: $Z_HEADER;
+  background: $HEADER_BG;
+  color: $HEADER_TEXT;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'brand actions'
+    'switcher switcher';
+  align-items: center;
+  gap: $SPACE_3 $SPACE_4;
+  padding-top: $SPACE_3;
+  padding-bottom: $SPACE_3;
+
+  @include for('Desktop') {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: 'brand switcher actions';
+    min-height: 4.5rem;
+  }
+}
+
+.brand {
+  grid-area: brand;
+  display: inline-flex;
+  align-items: baseline;
+  gap: $SPACE_2;
+  border-radius: $RADIUS_SM;
+}
+
+.brand:focus-visible {
+  outline-color: $ACCENT;
+}
+
+.mark {
+  width: 1.5rem;
+  height: 1.5rem;
+  align-self: center;
+}
+
+.brandName {
+  font-weight: $WEIGHT_BOLD;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: $TEXT_SM;
+}
+
+.brandSub {
+  display: none;
+  color: $HEADER_TEXT_MUTED;
+  font-size: $TEXT_SM;
+
+  @include for('Desktop') {
+    display: inline;
+  }
+}
+
+.switcher {
+  grid-area: switcher;
+  display: flex;
+  align-items: center;
+  gap: $SPACE_2;
+  min-width: 0;
+
+  @include for('Desktop') {
+    justify-self: center;
+    width: min(100%, 32rem);
+  }
+}
+
+.switcherLabel {
+  flex: none;
+  font-size: $TEXT_SM;
+  color: $HEADER_TEXT_MUTED;
+}
+
+.switcherSelect {
+  @include selectBase($HEADER_TEXT_MUTED);
+  height: $CONTROL_HEIGHT_SM;
+  min-width: 0;
+  border-color: $SLATE_700;
+  background-color: $SLATE_900;
+  color: $HEADER_TEXT;
+}
+
+.switcherSelect:focus-visible {
+  border-color: $ACCENT;
+  box-shadow: none;
+  outline: 2px solid $ACCENT;
+  outline-offset: 2px;
+}
+
+.actions {
+  grid-area: actions;
+  display: flex;
+  justify-content: flex-end;
+}

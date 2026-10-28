@@ -1,0 +1,54 @@
+@use 'shared' as *;
+
+.panel {
+  position: fixed;
+  right: $SPACE_4;
+  bottom: $SPACE_4;
+  z-index: $Z_HEADER;
+  width: 15rem;
+  border: 1px solid $BORDER;
+  border-radius: $RADIUS_MD;
+  background: $SURFACE;
+  box-shadow: $SHADOW_POPOVER;
+  font-size: $TEXT_SM;
+}
+
+.summary {
+  padding: $SPACE_2 $SPACE_3;
+  cursor: pointer;
+  font-weight: $WEIGHT_MEDIUM;
+  border-radius: $RADIUS_MD;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: $SPACE_3;
+  padding: 0 $SPACE_3 $SPACE_3;
+}
+
+.hint {
+  color: $TEXT_MUTED;
+  font-size: $TEXT_XS;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: $SPACE_2;
+}
+
+.fieldLabel {
+  flex: none;
+}
+
+.select {
+  @include selectBase;
+  height: $CONTROL_HEIGHT_SM;
+}
+
+.checkbox {
+  width: 1rem;
+  height: 1rem;
+  accent-color: $PINK;
+}

@@ -1,0 +1,103 @@
+<app-header
+  [campaigns]="campaignList()"
+  [selectedId]="activeCampaignId() ?? null"
+  (campaignChange)="switchCampaign($event)"
+>
+  <button type="button" class="addBtn" (click)="openDialog()" [disabled]="!canAddDonation()">
+    <svg class="addIcon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </svg>
+    <span class="addLabel">Add donation</span>
+  </button>
+</app-header>
+
+<main class="pageContainer main">
+  @if (campaigns.status() === 'error') {
+    <div class="card">
+      <app-error-state title="Couldn't load campaigns" [message]="describe(campaigns.error())" (retry)="retryAll()" />
+    </div>
+  } @else if (hasNoCampaigns()) {
+    <div class="card emptyCard">
+      <h1 class="emptyTitle">No campaigns yet</h1>
+      <p class="emptyText">Campaigns appear here as soon as one is created in Formunauts.</p>
+    </div>
+  } @else if (overview.status() === 'error') {
+    <div class="card">
+      @if (isCampaignMissing()) {
+        <app-error-state
+          title="Campaign not found"
+          message="This campaign does not exist or is no longer available. Pick another one from the switcher above."
+          [canRetry]="false"
+        />
+      } @else {
+        <app-error-state
+          title="Couldn't load the campaign overview"
+          [message]="describe(overview.error())"
+          (retry)="retryAll()"
+        />
+      }
+    </div>
+  } @else {
+    <section class="hero" aria-label="Campaign">
+      @if (campaign(); as campaign) {
+        <h1 class="heroTitle">{{ campaign.name }}</h1>
+        <p class="heroMeta">
+          <span>{{ campaign.charityName }}</span>
+          <span class="heroDot" aria-hidden="true">·</span>
+          <span>{{ channelLabels[campaign.channel] }} campaign</span>
+          <span class="heroDot" aria-hidden="true">·</span>
+          <span>{{ campaign.startDate | localDate }} – {{ campaign.endDate | localDate }}</span>
+        </p>
+        @if (phase() === 'upcoming') {
+          <p class="heroHint">
+            Donations can be recorded once the campaign starts on {{ campaign.startDate | localDate }}.
+          </p>
+        }
+      } @else {
+        <app-skeleton width="min(28rem, 70%)" height="1.75rem" />
+        <app-skeleton width="min(22rem, 55%)" height="1rem" />
+      }
+    </section>
+
+    <app-kpi-tiles [performance]="performance()" [loading]="overview.status() === 'loading'" />
+
+    <section class="charts" aria-label="Campaign charts">
+      <article class="card chartCard">
+        <h2 class="chartTitle">Goal progress</h2>
+        @if (performance(); as performance) {
+          <app-goal-progress-chart [performance]="performance" />
+        } @else {
+          <app-skeleton width="100%" height="14rem" />
+        }
+      </article>
+      <article class="card chartCard chartCardWide">
+        <h2 class="chartTitle">Daily sign-ups and cumulative raised</h2>
+        @if (performance(); as performance) {
+          <app-daily-donations-chart
+            [daily]="overview.value()?.daily ?? []"
+            [goalAmount]="performance.overview.campaign.goalAmount"
+            [today]="today"
+          />
+        } @else {
+          <app-skeleton width="100%" height="14rem" />
+        }
+      </article>
+      <article class="card chartCard">
+        <h2 class="chartTitle">By payment method</h2>
+        @if (overview.hasValue()) {
+          <app-payment-method-chart [shares]="overview.value().byPaymentMethod" />
+        } @else {
+          <app-skeleton width="100%" height="14rem" />
+        }
+      </article>
+    </section>
+
+    <app-donations-list [fundraisers]="fundraiserList()" />
+  }
+</main>
+
+<app-add-donation-dialog
+  [campaign]="campaign()"
+  [fundraisers]="fundraiserList()"
+  (created)="onCreated($event)"
+/>

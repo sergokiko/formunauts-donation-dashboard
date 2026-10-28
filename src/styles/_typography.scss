@@ -1,0 +1,40 @@
+@use 'variables' as *;
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: $FONT_SANS;
+  font-size: $TEXT_MD;
+  line-height: $LEADING_NORMAL;
+  color: $TEXT;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: $WEIGHT_SEMIBOLD;
+  line-height: $LEADING_TIGHT;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: $TEXT_2XL;
+}
+
+h2 {
+  font-size: $TEXT_XL;
+}
+
+h3 {
+  font-size: $TEXT_LG;
+}
+
+small {
+  font-size: $TEXT_SM;
+}

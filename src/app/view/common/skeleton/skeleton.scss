@@ -1,0 +1,18 @@
+@use 'shared' as *;
+
+:host {
+  display: block;
+  border-radius: $RADIUS_SM;
+  background: linear-gradient(90deg, $SKELETON_BASE 25%, $SKELETON_SHINE 50%, $SKELETON_BASE 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}

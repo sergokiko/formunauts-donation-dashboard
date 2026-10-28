@@ -1,0 +1,81 @@
+<figure class="figure">
+  <svg class="svg" [attr.viewBox]="'0 0 ' + width() + ' ' + height" role="img" [attr.aria-label]="summary()">
+    @for (tick of marks().leftTicks; track $index) {
+      <line
+        [attr.x1]="margin.left"
+        [attr.x2]="width() - margin.right"
+        [attr.y1]="tick.position"
+        [attr.y2]="tick.position"
+        stroke="var(--chart-grid)"
+      />
+      <text class="axisLabel" [attr.x]="margin.left - 8" [attr.y]="tick.position" text-anchor="end" dy="0.35em">
+        {{ tick.label }}
+      </text>
+    }
+    @for (tick of marks().rightTicks; track $index) {
+      <text
+        class="axisLabel"
+        [attr.x]="width() - margin.right + 8"
+        [attr.y]="tick.position"
+        text-anchor="start"
+        dy="0.35em"
+      >
+        {{ tick.label }}
+      </text>
+    }
+    @for (bar of marks().bars; track bar.key) {
+      <rect
+        [attr.x]="bar.x"
+        [attr.y]="bar.y"
+        [attr.width]="bar.width"
+        [attr.height]="bar.height"
+        fill="var(--chart-secondary)"
+        rx="1"
+      >
+        <title>{{ bar.label }}</title>
+      </rect>
+    }
+    @if (marks().todayX !== null) {
+      <line
+        [attr.x1]="marks().todayX"
+        [attr.x2]="marks().todayX"
+        [attr.y1]="margin.top"
+        [attr.y2]="height - margin.bottom"
+        stroke="var(--chart-axis)"
+        stroke-dasharray="2 3"
+      />
+      <text class="axisLabel" [attr.x]="marks().todayX" [attr.y]="margin.top - 4" text-anchor="middle">Today</text>
+    }
+    <line
+      [attr.x1]="margin.left"
+      [attr.x2]="width() - margin.right"
+      [attr.y1]="marks().goalY"
+      [attr.y2]="marks().goalY"
+      stroke="var(--chart-goal)"
+      stroke-dasharray="6 4"
+    />
+    <text class="axisLabel" [attr.x]="width() - margin.right - 4" [attr.y]="marks().goalY - 6" text-anchor="end">
+      Goal
+    </text>
+    <path
+      [attr.d]="marks().cumulativePath"
+      fill="none"
+      stroke="var(--chart-primary)"
+      stroke-width="2.5"
+      stroke-linejoin="round"
+    />
+    @for (tick of marks().bottomTicks; track $index) {
+      <text class="axisLabel" [attr.x]="tick.position" [attr.y]="height - margin.bottom + 18" text-anchor="middle">
+        {{ tick.label }}
+      </text>
+    }
+  </svg>
+  <figcaption class="legend">
+    <span class="legendItem"><span class="swatch swatchBar" aria-hidden="true"></span> Daily sign-ups</span>
+    <span class="legendItem"><span class="swatch swatchLine" aria-hidden="true"></span> Cumulative raised</span>
+    <span class="legendItem"
+      ><span class="swatch swatchGoal" aria-hidden="true"></span> Goal
+      {{ goalAmount() | money: { compact: true } }}</span
+    >
+  </figcaption>
+</figure>

@@ -1,0 +1,76 @@
+@use 'shared' as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $SPACE_3;
+
+  @include for('Desktop') {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: $SPACE_4;
+  }
+}
+
+.tile {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  gap: $SPACE_1;
+  padding: $SPACE_4;
+  min-height: 7.5rem;
+
+  @include for('Desktop') {
+    padding: $SPACE_5;
+  }
+}
+
+.skeletonTile {
+  gap: $SPACE_3;
+}
+
+.label {
+  font-size: $TEXT_SM;
+  color: $TEXT_MUTED;
+}
+
+.value {
+  font-size: $TEXT_XL;
+  font-weight: $WEIGHT_SEMIBOLD;
+  letter-spacing: -0.02em;
+  line-height: $LEADING_TIGHT;
+
+  @include for('Desktop') {
+    font-size: $TEXT_2XL;
+  }
+}
+
+.detail {
+  font-size: $TEXT_SM;
+  color: $TEXT_MUTED;
+}
+
+.badge {
+  align-self: flex-start;
+  margin-top: $SPACE_1;
+  padding: 0.125rem $SPACE_2;
+  border-radius: $RADIUS_PILL;
+  font-size: $TEXT_XS;
+  font-weight: $WEIGHT_MEDIUM;
+  background: $SURFACE_ALT;
+  color: $TEXT_MUTED;
+}
+
+.badgeSuccess {
+  background: $SUCCESS_SOFT;
+  color: $SUCCESS_TEXT;
+}
+
+.badgeWarning {
+  background: $WARNING_SOFT;
+  color: $WARNING_TEXT;
+}
+
+.badgeDanger {
+  background: $DANGER_SOFT;
+  color: $DANGER_TEXT;
+}

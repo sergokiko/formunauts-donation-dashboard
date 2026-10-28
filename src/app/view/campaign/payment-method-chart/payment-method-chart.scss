@@ -1,0 +1,55 @@
+@use 'shared' as *;
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: $SPACE_3;
+}
+
+.svg {
+  width: 100%;
+  height: 0.875rem;
+  border-radius: $RADIUS_SM;
+  overflow: hidden;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: $SPACE_2;
+  font-size: $TEXT_SM;
+}
+
+.legendRow {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    'swatch label share'
+    'swatch value value';
+  column-gap: $SPACE_2;
+  align-items: center;
+}
+
+.swatch {
+  grid-area: swatch;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 3px;
+  border: 1px solid $BORDER;
+}
+
+.legendLabel {
+  grid-area: label;
+}
+
+.legendShare {
+  grid-area: share;
+  font-weight: $WEIGHT_MEDIUM;
+  font-variant-numeric: tabular-nums;
+}
+
+.legendValue {
+  grid-area: value;
+  color: $TEXT_MUTED;
+  font-size: $TEXT_XS;
+}

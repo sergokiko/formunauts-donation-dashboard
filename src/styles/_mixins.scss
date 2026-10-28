@@ -1,0 +1,162 @@
+@use 'sass:map';
+@use 'sass:string';
+@use 'variables' as *;
+
+// ---------------------------------------------------------------------------
+// Breakpoints. Mobile-first: write the mobile rule, then override inside
+// `@include for('Desktop')`.
+// ---------------------------------------------------------------------------
+$layout: (
+  Mobile: (
+    start: 0,
+    end: 1023,
+    isFirst: true,
+    isLast: false
+  ),
+  Desktop: (
+    start: 1024,
+    end: null,
+    isFirst: false,
+    isLast: true
+  )
+);
+
+@mixin for($name) {
+  $range: map.get($layout, $name);
+  $start: map.get($range, 'start');
+  $end: map.get($range, 'end');
+  $isFirst: map.get($range, 'isFirst');
+  $isLast: map.get($range, 'isLast');
+
+  @if $isFirst {
+    @media (max-width: #{$end}px) {
+      @content;
+    }
+  } @else if $isLast {
+    @media (min-width: #{$start}px) {
+      @content;
+    }
+  } @else {
+    @media (min-width: #{$start}px) and (max-width: #{$end}px) {
+      @content;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Reusable fragments
+// ---------------------------------------------------------------------------
+@mixin focusRing {
+  outline: 2px solid $PINK;
+  outline-offset: 2px;
+}
+
+@mixin visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@mixin card {
+  background: $SURFACE;
+  border: 1px solid $BORDER;
+  border-radius: $RADIUS_LG;
+  box-shadow: $SHADOW_CARD;
+}
+
+// Shared look for text inputs and selects.
+@mixin controlBase {
+  width: 100%;
+  height: $CONTROL_HEIGHT;
+  padding: 0 $SPACE_3;
+  border: 1px solid $BORDER_STRONG;
+  border-radius: $RADIUS_SM;
+  background: $SURFACE;
+  color: $TEXT;
+  font: inherit;
+  transition:
+    border-color $TRANSITION,
+    box-shadow $TRANSITION;
+
+  &::placeholder {
+    color: $TEXT_SUBTLE;
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-color: $PINK;
+    box-shadow: $FOCUS_SHADOW;
+  }
+
+  &:disabled {
+    background-color: $SURFACE_ALT;
+    color: $TEXT_SUBTLE;
+    cursor: not-allowed;
+  }
+}
+
+// Inline chevron icon for selects. Expects a hex colour; `#` is not valid inside a data URI, so it is
+// replaced by its percent-encoded form.
+@function chevron($color) {
+  $hex: string.slice('#{$color}', 2);
+  @return url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23#{$hex}' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'><path d='m4 6 4 4 4-4'/></svg>");
+}
+
+// A select with our own chevron: browsers draw the native arrow flush against
+// the edge once a control has custom borders, which looks clipped.
+@mixin selectBase($chevron-color: $TEXT_MUTED) {
+  @include controlBase;
+  appearance: none;
+  padding-right: $SPACE_7;
+  background-image: chevron($chevron-color);
+  background-repeat: no-repeat;
+  background-position: right $SPACE_3 center;
+  background-size: 1rem 1rem;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@mixin buttonBase {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $SPACE_2;
+  height: $CONTROL_HEIGHT;
+  padding: 0 $SPACE_4;
+  border: 1px solid transparent;
+  border-radius: $RADIUS_SM;
+  font: inherit;
+  font-weight: $WEIGHT_MEDIUM;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color $TRANSITION,
+    border-color $TRANSITION,
+    color $TRANSITION,
+    box-shadow $TRANSITION;
+
+  &:focus-visible {
+    @include focusRing;
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

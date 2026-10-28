@@ -1,0 +1,3 @@
+// Single import line for every component stylesheet: `@use 'shared' as *;`
+@forward 'variables';
+@forward 'mixins';

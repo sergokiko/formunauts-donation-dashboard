@@ -1,0 +1,123 @@
+@use 'shared' as *;
+
+.card {
+  @include card;
+  overflow: hidden;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+}
+
+.headRow {
+  display: none;
+
+  @include for('Desktop') {
+    display: grid;
+    grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.1fr) minmax(0, 1.2fr) minmax(0, 1.3fr) minmax(0, 1.3fr);
+    gap: $SPACE_3;
+    padding: $SPACE_2 $SPACE_4;
+    border-bottom: 1px solid $BORDER;
+    background: $SURFACE_ALT;
+  }
+}
+
+.headCell {
+  font-size: $TEXT_XS;
+  font-weight: $WEIGHT_SEMIBOLD;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: $TEXT_MUTED;
+}
+
+.viewport {
+  height: 36rem;
+  max-height: 65vh;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $SPACE_3;
+  min-height: 2.75rem;
+  padding: $SPACE_2 $SPACE_4;
+  border-top: 1px solid $BORDER;
+  font-size: $TEXT_SM;
+  color: $TEXT_MUTED;
+}
+
+.footerAction {
+  @include buttonBase;
+  height: $CONTROL_HEIGHT_SM;
+  padding: 0 $SPACE_3;
+  border-color: $BORDER_STRONG;
+  color: $TEXT;
+}
+
+.footerAction:hover {
+  background: $SURFACE_ALT;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $SPACE_2;
+  padding: $SPACE_8 $SPACE_4;
+  text-align: center;
+}
+
+.emptyTitle {
+  font-weight: $WEIGHT_SEMIBOLD;
+}
+
+.emptyText {
+  color: $TEXT_MUTED;
+  font-size: $TEXT_SM;
+}
+
+.emptyAction {
+  @include buttonBase;
+  margin-top: $SPACE_2;
+  border-color: $BORDER_STRONG;
+  color: $TEXT;
+}
+
+.emptyAction:hover {
+  background: $SURFACE_ALT;
+}
+
+.skeletonRows {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeletonRow {
+  display: flex;
+  gap: $SPACE_4;
+  align-items: center;
+  height: $ROW_HEIGHT_DESKTOP;
+  padding: 0 $SPACE_4;
+  border-bottom: 1px solid $BORDER;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $SPACE_3;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: $SPACE_3;
+}
+
+.count {
+  font-size: $TEXT_SM;
+  color: $TEXT_MUTED;
+  font-variant-numeric: tabular-nums;
+}

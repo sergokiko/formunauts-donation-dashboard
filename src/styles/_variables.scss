@@ -1,0 +1,119 @@
+// ---------------------------------------------------------------------------
+// Design tokens. Every colour used by a component comes from here (or from a
+// file-top local variable named by its visual role) — never an inline hex.
+// Units: rem for spacing / type / dimensions, px for borders, radii, shadows
+// and breakpoints.
+// ---------------------------------------------------------------------------
+
+// Brand (taken from the Formunauts assignment brief)
+$PINK: #ff007b; // ≥ 3:1 on white → ok for large text, focus rings and chart marks
+$PINK_TEXT: #c4005f; // ≈ 6:1 on white → ok for body-size text
+$PINK_DEEP: #a3004f; // hover state of filled primary buttons
+$PINK_SOFT: #ffe3f0;
+$CYAN_CHART: #0097a7; // ≥ 3:1 on white → chart marks
+$CYAN_TEXT: #007a8c; // ≈ 5:1 on white → body-size text
+$CYAN_SOFT: #dff7fb;
+$ACCENT: #00e5ff; // only on dark backgrounds
+$DEEP: #0a0616;
+
+// Neutral scale
+$SLATE_900: #0f172a;
+$SLATE_700: #334155;
+$SLATE_600: #475569;
+$SLATE_500: #64748b;
+$SLATE_400: #94a3b8;
+$SLATE_300: #cbd5e1;
+$SLATE_200: #e2e8f0;
+$SLATE_100: #f1f5f9;
+$SLATE_50: #f8fafc;
+$WHITE: #ffffff;
+
+// Semantic colours
+$TEXT: $SLATE_900;
+$TEXT_MUTED: $SLATE_600;
+$TEXT_SUBTLE: $SLATE_500;
+$TEXT_INVERSE: $WHITE;
+$PAGE_BG: $SLATE_50;
+$SURFACE: $WHITE;
+$SURFACE_ALT: $SLATE_100;
+$BORDER: $SLATE_200;
+$BORDER_STRONG: $SLATE_300;
+$HEADER_BG: $DEEP;
+$HEADER_TEXT: $WHITE;
+$HEADER_TEXT_MUTED: $SLATE_300;
+// Filled primary buttons: white text needs ≥ 4.5:1, which the brand pink does not reach.
+$PRIMARY_BG: $PINK_TEXT;
+$PRIMARY_BG_HOVER: $PINK_DEEP;
+$PRIMARY_TEXT: $WHITE;
+
+$SUCCESS_TEXT: #15803d;
+$SUCCESS_SOFT: #dcfce7;
+$WARNING_TEXT: #b45309;
+$WARNING_SOFT: #fef3c7;
+$DANGER_TEXT: #b91c1c;
+$DANGER_SOFT: #fee2e2;
+$INFO_TEXT: $CYAN_TEXT;
+
+$OVERLAY: rgba(10, 6, 22, 0.55);
+$SKELETON_BASE: $SLATE_200;
+$SKELETON_SHINE: $SLATE_100;
+
+// Spacing scale
+$SPACE_1: 0.25rem;
+$SPACE_2: 0.5rem;
+$SPACE_3: 0.75rem;
+$SPACE_4: 1rem;
+$SPACE_5: 1.5rem;
+$SPACE_6: 2rem;
+$SPACE_7: 2.5rem;
+$SPACE_8: 3rem;
+
+// Radii, shadows
+$RADIUS_SM: 6px;
+$RADIUS_MD: 10px;
+$RADIUS_LG: 16px;
+$RADIUS_PILL: 999px;
+$SHADOW_CARD:
+  0 1px 2px rgba(15, 23, 42, 0.05),
+  0 1px 3px rgba(15, 23, 42, 0.08);
+$SHADOW_POPOVER: 0 12px 32px rgba(15, 23, 42, 0.18);
+$FOCUS_SHADOW: 0 0 0 3px $PINK_SOFT;
+
+// Typography
+$FONT_SANS:
+  'Inter',
+  system-ui,
+  -apple-system,
+  'Segoe UI',
+  Roboto,
+  'Helvetica Neue',
+  sans-serif;
+$TEXT_XS: 0.75rem;
+$TEXT_SM: 0.875rem;
+$TEXT_MD: 1rem;
+$TEXT_LG: 1.125rem;
+$TEXT_XL: 1.375rem;
+$TEXT_2XL: 1.75rem;
+$TEXT_3XL: 2.25rem;
+$WEIGHT_MEDIUM: 500;
+$WEIGHT_SEMIBOLD: 600;
+$WEIGHT_BOLD: 700;
+$LEADING_TIGHT: 1.2;
+$LEADING_NORMAL: 1.5;
+
+// Layout
+$CONTAINER_MAX: 80rem;
+$CONTROL_HEIGHT: 2.5rem;
+$CONTROL_HEIGHT_SM: 2rem;
+// Donation rows are fixed pixel heights because the virtual scroller positions rows by a px itemSize;
+// ROW_HEIGHT_DESKTOP / ROW_HEIGHT_MOBILE in donations-list.ts must match these.
+$ROW_HEIGHT_DESKTOP: 56px;
+$ROW_HEIGHT_MOBILE: 112px;
+
+// Layers
+$Z_HEADER: 10;
+$Z_TOAST: 100;
+
+// Motion
+$TRANSITION: 0.15s ease;
+$TRANSITION_SLOW: 0.25s ease;

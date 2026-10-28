@@ -1,0 +1,5 @@
+// Global stylesheet. Tokens and mixins live in src/styles and are consumed by
+// components through `@use 'shared' as *;` (see angular.json includePaths).
+@use 'reset';
+@use 'typography';
+@use 'base';

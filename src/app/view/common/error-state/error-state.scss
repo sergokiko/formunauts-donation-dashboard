@@ -1,0 +1,45 @@
+@use 'shared' as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $SPACE_2;
+  padding: $SPACE_6 $SPACE_4;
+  text-align: center;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: $RADIUS_PILL;
+  background: $DANGER_SOFT;
+  color: $DANGER_TEXT;
+  font-weight: $WEIGHT_BOLD;
+  font-size: $TEXT_LG;
+}
+
+.title {
+  font-weight: $WEIGHT_SEMIBOLD;
+}
+
+.message {
+  color: $TEXT_MUTED;
+  font-size: $TEXT_SM;
+  max-width: 28rem;
+}
+
+.retryBtn {
+  @include buttonBase;
+  margin-top: $SPACE_2;
+  border-color: $BORDER_STRONG;
+  background: $SURFACE;
+  color: $TEXT;
+}
+
+.retryBtn:hover {
+  background: $SURFACE_ALT;
+}

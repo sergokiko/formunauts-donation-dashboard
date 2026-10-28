@@ -1,0 +1,93 @@
+<section class="section" aria-labelledby="donations-heading">
+  <div class="head">
+    <h2 id="donations-heading" class="heading">Donations</h2>
+    <p class="count" aria-live="polite">{{ countLabel() }}</p>
+  </div>
+
+  <app-donations-toolbar
+    [filter]="store.filter()"
+    [isFiltered]="store.isFiltered()"
+    (filterChange)="store.setFilter($event)"
+    (clear)="store.clearFilter()"
+  />
+
+  <div class="card">
+    @switch (store.status()) {
+      @case ('error') {
+        <app-error-state title="Couldn't load donations" [message]="store.error()" (retry)="store.reload()" />
+      }
+      @case ('resolved') {
+        @if (store.items().length === 0) {
+          <div class="empty">
+            <p class="emptyTitle">{{ store.isFiltered() ? 'No donations match these filters' : 'No donations yet' }}</p>
+            <p class="emptyText">
+              {{
+                store.isFiltered()
+                  ? 'Try a different search or payment method.'
+                  : 'Sign-ups will appear here as fundraisers record them.'
+              }}
+            </p>
+            @if (store.isFiltered()) {
+              <button type="button" class="emptyAction" (click)="store.clearFilter()">Clear filters</button>
+            }
+          </div>
+        } @else {
+          <div class="table">
+            <div class="headRow">
+              <span class="headCell">Donor</span>
+              <span class="headCell">Amount</span>
+              <span class="headCell">Method</span>
+              <span class="headCell">Fundraiser</span>
+              <span class="headCell">Date</span>
+            </div>
+            <cdk-virtual-scroll-viewport
+              class="viewport"
+              tabindex="0"
+              aria-label="Donation rows, scrollable"
+              [itemSize]="rowHeight()"
+              [minBufferPx]="rowHeight() * 6"
+              [maxBufferPx]="rowHeight() * 12"
+              (scrolledIndexChange)="store.onScrolledIndex($event)"
+            >
+              <app-donation-row
+                *cdkVirtualFor="let donation of store.items(); trackBy: trackById"
+                [donation]="donation"
+                [fundraiserName]="fundraiserName(donation.fundraiserId)"
+              />
+            </cdk-virtual-scroll-viewport>
+          </div>
+          <div class="footer" aria-live="polite">
+            @switch (store.loadMoreStatus()) {
+              @case ('loading') {
+                <span class="footerText">Loading more donations…</span>
+              }
+              @case ('error') {
+                <span class="footerText">{{ store.error() }}</span>
+                <button type="button" class="footerAction" (click)="store.loadMore()">Retry</button>
+              }
+              @default {
+                @if (!store.hasMore()) {
+                  <span class="footerText">{{ totalLabel() }}</span>
+                } @else {
+                  <span class="footerText">Scroll to load more</span>
+                }
+              }
+            }
+          </div>
+        }
+      }
+      @default {
+        <div class="skeletonRows" aria-busy="true" aria-label="Loading donations">
+          @for (placeholder of placeholders; track placeholder) {
+            <div class="skeletonRow">
+              <app-skeleton width="38%" height="0.875rem" />
+              <app-skeleton width="14%" height="0.875rem" />
+              <app-skeleton width="18%" height="0.875rem" />
+              <app-skeleton width="20%" height="0.875rem" />
+            </div>
+          }
+        </div>
+      }
+    }
+  </div>
+</section>

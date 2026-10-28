@@ -1,0 +1,98 @@
+@use 'shared' as *;
+
+:host {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'donor amount'
+    'method method'
+    'fundraiser date';
+  gap: $SPACE_1 $SPACE_3;
+  height: $ROW_HEIGHT_MOBILE;
+  padding: $SPACE_3 $SPACE_4;
+  border-bottom: 1px solid $BORDER;
+  font-size: $TEXT_SM;
+
+  @include for('Desktop') {
+    grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.1fr) minmax(0, 1.2fr) minmax(0, 1.3fr) minmax(0, 1.3fr);
+    grid-template-areas: 'donor amount method fundraiser date';
+    align-items: center;
+    height: $ROW_HEIGHT_DESKTOP;
+    padding: 0 $SPACE_4;
+  }
+}
+
+.cell {
+  min-width: 0;
+}
+
+.cellDonor {
+  grid-area: donor;
+  display: flex;
+  flex-direction: column;
+}
+
+.donorName {
+  font-weight: $WEIGHT_MEDIUM;
+  color: $TEXT;
+  @include truncate;
+}
+
+.donorEmail {
+  color: $TEXT_MUTED;
+  font-size: $TEXT_XS;
+  @include truncate;
+}
+
+.cellAmount {
+  grid-area: amount;
+  display: flex;
+  align-items: center;
+  gap: $SPACE_2;
+  justify-content: flex-end;
+
+  @include for('Desktop') {
+    justify-content: flex-start;
+  }
+}
+
+.amount {
+  font-weight: $WEIGHT_SEMIBOLD;
+  font-variant-numeric: tabular-nums;
+}
+
+.frequency {
+  padding: 0 $SPACE_2;
+  border-radius: $RADIUS_PILL;
+  background: $SURFACE_ALT;
+  color: $TEXT_MUTED;
+  font-size: $TEXT_XS;
+  white-space: nowrap;
+}
+
+.frequencyMonthly {
+  background: $CYAN_SOFT;
+  color: $CYAN_TEXT;
+}
+
+.cellMethod {
+  grid-area: method;
+  color: $TEXT_MUTED;
+}
+
+.cellFundraiser {
+  grid-area: fundraiser;
+  color: $TEXT_MUTED;
+  @include truncate;
+}
+
+.cellDate {
+  grid-area: date;
+  color: $TEXT_MUTED;
+  text-align: right;
+  white-space: nowrap;
+
+  @include for('Desktop') {
+    text-align: left;
+  }
+}

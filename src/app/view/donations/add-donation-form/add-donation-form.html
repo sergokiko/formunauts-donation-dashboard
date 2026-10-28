@@ -1,0 +1,160 @@
+<form class="form" novalidate (submit)="$event.preventDefault(); save()">
+  <div class="grid">
+    <div class="field">
+      <label class="label" for="donor-first-name">First name</label>
+      <input
+        id="donor-first-name"
+        class="input"
+        type="text"
+        autocomplete="given-name"
+        [formField]="form.donor.firstName"
+        [class.inputError]="showError(form.donor.firstName)"
+        [attr.aria-invalid]="showError(form.donor.firstName) || null"
+        [attr.aria-describedby]="showError(form.donor.firstName) ? 'donor-first-name-error' : null"
+      />
+      @if (showError(form.donor.firstName)) {
+        <p id="donor-first-name-error" class="error">{{ firstError(form.donor.firstName) }}</p>
+      }
+    </div>
+
+    <div class="field">
+      <label class="label" for="donor-last-name">Last name</label>
+      <input
+        id="donor-last-name"
+        class="input"
+        type="text"
+        autocomplete="family-name"
+        [formField]="form.donor.lastName"
+        [class.inputError]="showError(form.donor.lastName)"
+        [attr.aria-invalid]="showError(form.donor.lastName) || null"
+        [attr.aria-describedby]="showError(form.donor.lastName) ? 'donor-last-name-error' : null"
+      />
+      @if (showError(form.donor.lastName)) {
+        <p id="donor-last-name-error" class="error">{{ firstError(form.donor.lastName) }}</p>
+      }
+    </div>
+
+    <div class="field fieldWide">
+      <label class="label" for="donor-email">Email</label>
+      <input
+        id="donor-email"
+        class="input"
+        type="email"
+        autocomplete="email"
+        inputmode="email"
+        [formField]="form.donor.email"
+        [class.inputError]="showError(form.donor.email)"
+        [attr.aria-invalid]="showError(form.donor.email) || null"
+        [attr.aria-describedby]="showError(form.donor.email) ? 'donor-email-error' : null"
+      />
+      @if (showError(form.donor.email)) {
+        <p id="donor-email-error" class="error">{{ firstError(form.donor.email) }}</p>
+      }
+    </div>
+
+    <div class="field">
+      <label class="label" for="amount">Amount</label>
+      <div class="amountWrap">
+        <span class="amountPrefix" aria-hidden="true">€</span>
+        <input
+          id="amount"
+          class="input inputAmount"
+          type="number"
+          inputmode="decimal"
+          step="0.01"
+          placeholder="15.00"
+          [formField]="form.amount"
+          [class.inputError]="showError(form.amount)"
+          [attr.aria-invalid]="showError(form.amount) || null"
+          [attr.aria-describedby]="showError(form.amount) ? 'amount-error' : 'amount-hint'"
+        />
+      </div>
+      @if (showError(form.amount)) {
+        <p id="amount-error" class="error">{{ firstError(form.amount) }}</p>
+      } @else {
+        <p id="amount-hint" class="hint">Between €{{ minAmount }} and €{{ maxAmount }}</p>
+      }
+    </div>
+
+    <fieldset class="field fieldset">
+      <legend class="label">Frequency</legend>
+      <div class="radios">
+        @for (frequency of frequencies; track frequency) {
+          <label class="radio">
+            <input class="radioInput" type="radio" [value]="frequency" [formField]="form.frequency" />
+            <span>{{ frequencyLabels[frequency] }}</span>
+          </label>
+        }
+      </div>
+    </fieldset>
+
+    <div class="field">
+      <label class="label" for="payment-method">Payment method</label>
+      <select
+        id="payment-method"
+        class="select"
+        [formField]="form.paymentMethod"
+        [class.inputError]="showError(form.paymentMethod)"
+        [attr.aria-invalid]="showError(form.paymentMethod) || null"
+        [attr.aria-describedby]="showError(form.paymentMethod) ? 'payment-method-error' : null"
+      >
+        <option value="">Choose…</option>
+        @for (method of paymentMethods; track method) {
+          <option [value]="method">{{ paymentMethodLabels[method] }}</option>
+        }
+      </select>
+      @if (showError(form.paymentMethod)) {
+        <p id="payment-method-error" class="error">{{ firstError(form.paymentMethod) }}</p>
+      }
+    </div>
+
+    <div class="field">
+      <label class="label" for="fundraiser">Fundraiser</label>
+      <select
+        id="fundraiser"
+        class="select"
+        [formField]="form.fundraiserId"
+        [class.inputError]="showError(form.fundraiserId)"
+        [attr.aria-invalid]="showError(form.fundraiserId) || null"
+        [attr.aria-describedby]="showError(form.fundraiserId) ? 'fundraiser-error' : null"
+      >
+        <option value="">Choose…</option>
+        @for (fundraiser of fundraisers(); track fundraiser.id) {
+          <option [value]="fundraiser.id">{{ fundraiser.firstName }} {{ fundraiser.lastName }}</option>
+        }
+      </select>
+      @if (showError(form.fundraiserId)) {
+        <p id="fundraiser-error" class="error">{{ firstError(form.fundraiserId) }}</p>
+      }
+    </div>
+
+    <div class="field">
+      <label class="label" for="donated-at">Date</label>
+      <input
+        id="donated-at"
+        class="input"
+        type="date"
+        [attr.min]="campaign().startDate"
+        [attr.max]="maxDate()"
+        [formField]="form.donatedAt"
+        [class.inputError]="showError(form.donatedAt)"
+        [attr.aria-invalid]="showError(form.donatedAt) || null"
+        [attr.aria-describedby]="showError(form.donatedAt) ? 'donated-at-error' : null"
+      />
+      @if (showError(form.donatedAt)) {
+        <p id="donated-at-error" class="error">{{ firstError(form.donatedAt) }}</p>
+      }
+    </div>
+  </div>
+
+  @if (requestError(); as message) {
+    <p class="formError" role="alert">{{ message }} Your entries have been kept.</p>
+  }
+
+  <div class="actions">
+    <button type="button" class="cancelBtn" (click)="cancelled.emit()" [disabled]="submitting()">Cancel</button>
+    <button type="submit" class="saveBtn" [disabled]="submitting()">
+      {{ submitting() ? 'Saving…' : 'Save donation' }}
+    </button>
+  </div>
+</form>

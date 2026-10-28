@@ -1,0 +1,24 @@
+<figure class="figure">
+  <svg class="svg" [attr.viewBox]="'0 0 ' + size + ' ' + size" role="img" [attr.aria-label]="summary()">
+    <g [attr.transform]="'translate(' + size / 2 + ',' + size / 2 + ')'">
+      <path [attr.d]="tracks.money" fill="var(--chart-track)" />
+      <path [attr.d]="tracks.donors" fill="var(--chart-track)" />
+      <path [attr.d]="paths().money" fill="var(--chart-primary)" />
+      <path [attr.d]="paths().donors" fill="var(--chart-secondary)" />
+      <text class="percent" text-anchor="middle" dy="0.1em">{{ moneyPercent() }}</text>
+      <text class="caption" text-anchor="middle" dy="1.9em">of goal</text>
+    </g>
+  </svg>
+  <figcaption class="legend">
+    <div class="legendRow">
+      <span class="swatch swatchMoney" aria-hidden="true"></span>
+      <span class="legendLabel">Raised</span>
+      <span class="legendValue">{{ raisedLabel() }}</span>
+    </div>
+    <div class="legendRow">
+      <span class="swatch swatchDonors" aria-hidden="true"></span>
+      <span class="legendLabel">Donors</span>
+      <span class="legendValue">{{ donors() }} / {{ donorGoal() }} · {{ donorPercent() }}</span>
+    </div>
+  </figcaption>
+</figure>

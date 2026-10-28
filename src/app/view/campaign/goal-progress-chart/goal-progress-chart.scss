@@ -1,0 +1,62 @@
+@use 'shared' as *;
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $SPACE_3;
+}
+
+.svg {
+  width: min(100%, 13rem);
+  height: auto;
+}
+
+.percent {
+  font-size: 2.25rem;
+  font-weight: $WEIGHT_SEMIBOLD;
+  letter-spacing: -0.02em;
+  fill: $TEXT;
+}
+
+.caption {
+  font-size: 0.8rem;
+  fill: $TEXT_MUTED;
+}
+
+.legend {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: $SPACE_1;
+  font-size: $TEXT_SM;
+}
+
+.legendRow {
+  display: flex;
+  align-items: center;
+  gap: $SPACE_2;
+}
+
+.swatch {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: $RADIUS_PILL;
+}
+
+.swatchMoney {
+  background: $PINK;
+}
+
+.swatchDonors {
+  background: $CYAN_CHART;
+}
+
+.legendLabel {
+  color: $TEXT_MUTED;
+}
+
+.legendValue {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}

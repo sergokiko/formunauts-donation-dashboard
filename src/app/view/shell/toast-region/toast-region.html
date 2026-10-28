@@ -1,0 +1,24 @@
+<div class="region">
+  <div role="status" aria-live="polite" class="group">
+    @for (toast of successes(); track toast.id) {
+      <div class="toast toastSuccess">
+        <span class="icon" aria-hidden="true">✓</span>
+        <p class="message">{{ toast.message }}</p>
+        <button type="button" class="dismiss" (click)="toasts.dismiss(toast.id)" aria-label="Dismiss notification">
+          ×
+        </button>
+      </div>
+    }
+  </div>
+  <div role="alert" class="group">
+    @for (toast of errors(); track toast.id) {
+      <div class="toast toastError">
+        <span class="icon" aria-hidden="true">!</span>
+        <p class="message">{{ toast.message }}</p>
+        <button type="button" class="dismiss" (click)="toasts.dismiss(toast.id)" aria-label="Dismiss notification">
+          ×
+        </button>
+      </div>
+    }
+  </div>
+</div>

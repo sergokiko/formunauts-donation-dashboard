@@ -1,0 +1,29 @@
+<section class="grid" aria-label="Campaign key figures">
+  @if (loading() || tiles().length === 0) {
+    @for (placeholder of placeholders; track placeholder) {
+      <div class="tile skeletonTile">
+        <app-skeleton width="45%" height="0.875rem" />
+        <app-skeleton width="70%" height="1.75rem" />
+        <app-skeleton width="60%" height="0.875rem" />
+      </div>
+    }
+  } @else {
+    @for (tile of tiles(); track tile.label) {
+      <div class="tile">
+        <p class="label">{{ tile.label }}</p>
+        <p class="value">{{ tile.value }}</p>
+        <p class="detail">{{ tile.detail }}</p>
+        @if (tile.badge; as badge) {
+          <p
+            class="badge"
+            [class.badgeSuccess]="badge.tone === 'success'"
+            [class.badgeWarning]="badge.tone === 'warning'"
+            [class.badgeDanger]="badge.tone === 'danger'"
+          >
+            <span aria-hidden="true">{{ badge.glyph }}</span> {{ badge.text }}
+          </p>
+        }
+      </div>
+    }
+  }
+</section>

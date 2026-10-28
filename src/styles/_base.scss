@@ -1,0 +1,52 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// Chart colours are exposed as custom properties so SVG marks can reference
+// tokens from templates (`fill="var(--chart-primary)"`) instead of hex values.
+:root {
+  --chart-primary: #{$PINK};
+  --chart-primary-soft: #{$PINK_SOFT};
+  --chart-secondary: #{$CYAN_CHART};
+  --chart-tertiary: #{$SLATE_500};
+  --chart-quaternary: #{$SLATE_400};
+  --chart-quinary: #{$SLATE_200};
+  --chart-track: #{$SLATE_200};
+  --chart-grid: #{$SLATE_200};
+  --chart-axis: #{$TEXT_MUTED};
+  --chart-goal: #{$SLATE_700};
+  color-scheme: light;
+}
+
+body {
+  background: $PAGE_BG;
+}
+
+:focus-visible {
+  @include focusRing;
+}
+
+.visuallyHidden {
+  @include visuallyHidden;
+}
+
+.pageContainer {
+  width: 100%;
+  max-width: $CONTAINER_MAX;
+  margin: 0 auto;
+  padding: 0 $SPACE_4;
+
+  @include for('Desktop') {
+    padding: 0 $SPACE_6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

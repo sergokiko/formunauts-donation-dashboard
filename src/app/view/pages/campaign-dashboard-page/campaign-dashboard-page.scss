@@ -1,0 +1,125 @@
+@use 'shared' as *;
+
+.addBtn {
+  @include buttonBase;
+  // Optical balance: the icon's ink starts 2px inside its 16px box, so border (1px) + padding + 2px must
+  // equal the 14px gap above and below the ink in the 40px-high button.
+  padding-left: calc(#{$SPACE_3} - 1px);
+  background: $PRIMARY_BG;
+  color: $PRIMARY_TEXT;
+}
+
+.addIcon {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+}
+
+// Capital-height text reads slightly low in a centred line box; lift the glyphs without moving the layout.
+.addLabel {
+  position: relative;
+  top: -1px;
+}
+
+.addBtn:hover {
+  background: $PRIMARY_BG_HOVER;
+}
+
+.addBtn:focus-visible {
+  outline-color: $ACCENT;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: $SPACE_5;
+  padding-top: $SPACE_5;
+  padding-bottom: $SPACE_8;
+
+  @include for('Desktop') {
+    gap: $SPACE_6;
+    padding-top: $SPACE_6;
+  }
+}
+
+.card {
+  @include card;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: $SPACE_2;
+}
+
+.heroTitle {
+  font-size: $TEXT_2XL;
+
+  @include for('Desktop') {
+    font-size: $TEXT_3XL;
+  }
+}
+
+.heroMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $SPACE_2;
+  color: $TEXT_MUTED;
+  font-size: $TEXT_SM;
+}
+
+.heroDot {
+  color: $TEXT_SUBTLE;
+}
+
+.heroHint {
+  font-size: $TEXT_SM;
+  color: $INFO_TEXT;
+}
+
+.emptyCard {
+  padding: $SPACE_8 $SPACE_4;
+  text-align: center;
+}
+
+.emptyTitle {
+  margin-bottom: $SPACE_2;
+}
+
+.emptyText {
+  color: $TEXT_MUTED;
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: $SPACE_3;
+
+  @include for('Desktop') {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+    gap: $SPACE_4;
+  }
+}
+
+.chartCard {
+  display: flex;
+  flex-direction: column;
+  gap: $SPACE_4;
+  padding: $SPACE_4;
+  min-width: 0;
+
+  @include for('Desktop') {
+    padding: $SPACE_5;
+  }
+}
+
+.chartCardWide {
+  @include for('Desktop') {
+    grid-column: span 1;
+  }
+}
+
+.chartTitle {
+  font-size: $TEXT_MD;
+  font-weight: $WEIGHT_SEMIBOLD;
+}

@@ -1,0 +1,8 @@
+<div class="wrapper" role="alert">
+  <span class="icon" aria-hidden="true">!</span>
+  <p class="title">{{ title() }}</p>
+  <p class="message">{{ message() }}</p>
+  @if (canRetry()) {
+    <button type="button" class="retryBtn" (click)="retry.emit()">Try again</button>
+  }
+</div>

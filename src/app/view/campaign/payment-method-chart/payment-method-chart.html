@@ -1,0 +1,26 @@
+<figure class="figure">
+  <svg class="svg" [attr.viewBox]="'0 0 ' + width + ' ' + barHeight" preserveAspectRatio="none" aria-hidden="true">
+    <rect x="0" y="0" [attr.width]="width" [attr.height]="barHeight" fill="var(--chart-track)" rx="3" />
+    @for (segment of segments(); track segment.method) {
+      <rect
+        [attr.x]="segment.x"
+        y="0"
+        [attr.width]="segment.width"
+        [attr.height]="barHeight"
+        [attr.fill]="segment.color"
+      />
+    }
+  </svg>
+  <figcaption>
+    <ul class="legend">
+      @for (segment of segments(); track segment.method) {
+        <li class="legendRow">
+          <span class="swatch" [style.background]="segment.color" aria-hidden="true"></span>
+          <span class="legendLabel">{{ segment.label }}</span>
+          <span class="legendShare">{{ segment.share }}</span>
+          <span class="legendValue">{{ segment.amount }} · {{ segment.count }}</span>
+        </li>
+      }
+    </ul>
+  </figcaption>
+</figure>

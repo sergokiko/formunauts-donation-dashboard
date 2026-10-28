@@ -1,0 +1,26 @@
+@use 'shared' as *;
+
+.main {
+  padding-top: $SPACE_8;
+  padding-bottom: $SPACE_8;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: $SPACE_2;
+}
+
+.text {
+  color: $TEXT_MUTED;
+  margin-bottom: $SPACE_4;
+}
+
+.link {
+  @include buttonBase;
+  background: $PRIMARY_BG;
+  color: $PRIMARY_TEXT;
+}
+
+.link:hover {
+  background: $PRIMARY_BG_HOVER;
+}

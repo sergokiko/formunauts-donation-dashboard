@@ -1,0 +1,53 @@
+@use 'shared' as *;
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: $SPACE_3;
+  width: 100%;
+  min-width: 0;
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+}
+
+.axisLabel {
+  font-size: 0.7rem;
+  fill: $TEXT_MUTED;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $SPACE_2 $SPACE_4;
+  font-size: $TEXT_SM;
+  color: $TEXT_MUTED;
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: $SPACE_2;
+}
+
+.swatch {
+  width: 0.875rem;
+  height: 0.25rem;
+  border-radius: $RADIUS_PILL;
+}
+
+.swatchBar {
+  height: 0.75rem;
+  width: 0.5rem;
+  background: $CYAN_CHART;
+}
+
+.swatchLine {
+  background: $PINK;
+}
+
+.swatchGoal {
+  background: repeating-linear-gradient(90deg, $SLATE_700 0 0.25rem, transparent 0.25rem 0.4rem);
+}

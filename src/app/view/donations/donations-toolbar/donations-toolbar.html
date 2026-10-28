@@ -1,0 +1,33 @@
+<div class="toolbar">
+  <label class="search">
+    <span class="visuallyHidden">Search donors</span>
+    <input
+      class="input"
+      type="search"
+      placeholder="Search by donor name or email"
+      autocomplete="off"
+      [value]="filter().search"
+      (input)="onSearch($event)"
+    />
+  </label>
+  <label class="field">
+    <span class="fieldLabel">Method</span>
+    <select class="select" (change)="onPaymentMethod($event)">
+      <option value="" [selected]="filter().paymentMethod === ''">All methods</option>
+      @for (method of paymentMethods; track method) {
+        <option [value]="method" [selected]="filter().paymentMethod === method">{{ labels[method] }}</option>
+      }
+    </select>
+  </label>
+  <label class="field">
+    <span class="fieldLabel">Sort</span>
+    <select class="select" (change)="onSort($event)">
+      @for (option of sortOptions; track option.value) {
+        <option [value]="option.value" [selected]="filter().sort === option.value">{{ option.label }}</option>
+      }
+    </select>
+  </label>
+  @if (isFiltered()) {
+    <button type="button" class="clearBtn" (click)="clear.emit()">Clear filters</button>
+  }
+</div>

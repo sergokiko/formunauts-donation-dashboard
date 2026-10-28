@@ -1,0 +1,10 @@
+<details class="panel">
+  <summary class="summary">Mock API</summary>
+  <aside class="body" aria-label="Mock API controls">
+    <p class="hint">Every <code>/api</code> call is answered in the browser from seeded data.</p>
+    <label class="field">
+      <input class="checkbox" type="checkbox" [checked]="controls.failNext()" (change)="onFailNext($event)" />
+      <span class="fieldLabel">Fail the next request</span>
+    </label>
+  </aside>
+</details>

@@ -1,0 +1,13 @@
+<div class="cell cellDonor">
+  <span class="donorName">{{ donation().donor.firstName }} {{ donation().donor.lastName }}</span>
+  <span class="donorEmail">{{ donation().donor.email }}</span>
+</div>
+<div class="cell cellAmount">
+  <span class="amount">{{ donation().amount | money: { currency: donation().currency } }}</span>
+  <span class="frequency" [class.frequencyMonthly]="donation().frequency === monthly">
+    {{ frequencyLabels[donation().frequency] }}
+  </span>
+</div>
+<div class="cell cellMethod">{{ methodLabels[donation().paymentMethod] }}</div>
+<div class="cell cellFundraiser">{{ fundraiserName() }}</div>
+<div class="cell cellDate">{{ donation().donatedAt | localDate: 'dateTime' }}</div>
