@@ -69,14 +69,12 @@ page (loaded rows are kept); unknown campaign and unknown route; empty list and 
 clear; no campaigns at all; a campaign that has not started disables entry; DST-safe calendar arithmetic in
 the daily series.
 
-**Trade-offs.** One currency (EUR) in the data model, since a campaign collects in one currency; the "on
-track" badge compares money progress with a linear run-rate, which ignores that campaigns ramp up; after a
-save the list reloads instead of inserting the new row optimistically (one extra round trip, no ordering
-rule to maintain); failed requests are retried by the user through Retry buttons rather than automatically,
+**Trade-offs.** One currency (EUR) in the data model, since a campaign collects in one currency; failed requests are retried by the user through Retry buttons rather than automatically,
 and the one-time fundraiser list has no retry of its own (if it fails, the fundraiser select in the form stays
-empty until the page is reloaded); the mock server and zod are part of the production bundle (about 160 kB
-transferred) so the built app runs without a backend; the UI was verified by hand and with axe-core rather
-than with end-to-end tests, keeping the automated suite to the logic that can break silently.
+empty until the page is reloaded); the UI was verified by hand and with axe-core rather
+than with end-to-end tests, keeping the automated suite to the logic that can break silently. AI assistance
+was used for the mock backend (seed data, in-memory DB and interceptor) and for the D3 chart components, to
+make the dashboard look realistic and interactive .
 
 ## Chosen data model and testing strategy
 
